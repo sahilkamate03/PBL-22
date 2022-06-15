@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>QR Code Generator Tutorial</title>
+        <script src="qrcode.min.js"></script>
+        <script>
+            var qrcode = undefined;
+            function generateQRCode(value) {
+                if (qrcode === undefined) {
+                    qrcode = new QRCode(document.getElementById('qrcode'), value);
+                } else {
+                    qrcode.clear();
+                    qrcode.makeCode(value);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>QR Code Generator Tutorial</h1>
+        <div>
+            <label>Text: </label>
+            <input name="qrcode" type="text" onchange="generateQRCode(this.value)"/>
+        </div>
+        <br/>
+        <div>
+            <div id="qrcode"></div>
+        </div>
+    </body>
+</html>

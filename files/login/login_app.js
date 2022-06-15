@@ -38,6 +38,7 @@ submit.addEventListener('click', () => {
             // console.log(generateHash(document.getElementById('pwd').value))
             let unn = document.querySelector('#usname').value
             // console.log(snapshot.val())
+            console.log(snapshot.val()[`${unn}`].pwd)
             if (snapshot.val()[`${unn}`].pwd == generateHash(document.getElementById('pwd').value)) {
                 // session_generator()
                 writeUserData()

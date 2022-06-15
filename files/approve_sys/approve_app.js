@@ -61,4 +61,4 @@ function pend_req(authority,usname,student, type_of_appplication, reason) {
 console.log("start")
 // approve_req("parent","sahil_parent","21185","outpass","for timepass","warden")
 
-pend_req("parent","sahil_parent","sahil kamate","outpass","timepass")
+// pend_req("parent","sahil_parent","sahil kamate","outpass","timepass")
