@@ -417,3 +417,7 @@ a {
 	justify-content: center;
 	align-items: center;
 }
+
+.btn-active{
+	background-color: #afafc9;
+}
