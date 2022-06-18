@@ -245,17 +245,22 @@ a {
 .flex-container {
 	display: flex;
 	background-color: #e2e2ee;
-	height: 630px;
+	height: 83vh;
 }
 
 .first-column {
 	display: flex;
-	flex-flow: column wrap;
+	flex-flow: column;
 	flex: 20%;
 	/* color: white; */
 	background-color: rgb(255, 255, 255);
 	margin: 12px 0;
 	margin-left: 12px;
+	overflow-y: scroll;
+}
+
+.first-column::-webkit-scrollbar {
+    display: none;
 }
 
 .second-column {
@@ -421,3 +426,4 @@ a {
 .btn-active{
 	background-color: #afafc9;
 }
+
