@@ -267,7 +267,7 @@ function new_btns() {
 
                                                     <div class="col-md-12">
 
-                                                        <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
+                                                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
                                         " value="Send Request" style="background-color: #6200ee;" id ="send_req_la">
 
                                                     </div>

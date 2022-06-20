@@ -1,5 +1,5 @@
 // navbar js
-import { content_table } from "./changes_landing.js"
+import { content_table, title_innerText } from "./changes_landing.js"
 // import {contactFormDB} from "/main_runner.js"
 
 // firebase import
@@ -20,19 +20,37 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+let send_req;
 function check_things() {
     try {
-        const send_req_complaint = document.querySelector(
-            '#send_req_complaint')
-        const send_req_la = document.querySelector(
-            '#send_req_la')
-        const send_req_outpass = document.querySelector(
-            '#send_req_outpass');
+        if (title_innerText == "Complaint") {
+            console.log('complaint')
+            send_req = document.querySelector(
+                '#send_req_complaint')
+        }
+        else if (title_innerText == "Leave Application") {
+            console.log("la")
+            send_req = document.querySelector(
+                '#send_req_la')
+        }
+        else if (title_innerText == "Outpass") {
+            console.log('outpass')
+            send_req = document.querySelector(
+                '#send_req_outpass');
+        }
         // console.log(send_req_complaint)  
         if (check_things) {
-            send_req_complaint.addEventListener("click", writeComplaintUserData)
-            send_req_outpass.addEventListener("click", writeOutpassUserData)
-            send_req_la.addEventListener("click", writeLAUserData)
+            // send_req_complaint.addEventListener("click", writeComplaintUserData)
+            if (title_innerText == "Leave Application") {
+            send_req.addEventListener("click", writeLAUserData)
+            }
+            else if (title_innerText == "Complaint") {
+            send_req.addEventListener("click", writeComplaintUserData)
+            }
+            else if (title_innerText == "Complaint") {
+            send_req.addEventListener("click", writeOutpassUserData)
+            }
+            // send_req_la.addEventListener("click", writeLAUserData)
             console.log('Yes');
 
         } else {
@@ -175,7 +193,7 @@ function get_data_outpass(location) {
         const db = getDatabase();
         const data = ref(db, location + "outpass/" + item);
         onValue(data, (snapshot) => {
-        // get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
+            // get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
             var sr_no = 0;
             if (snapshot.exists()) {
                 for (let data in snapshot.val()) {
@@ -187,10 +205,10 @@ function get_data_outpass(location) {
                     data_table_outpass = `
                     <tr class="alert" role="alert">
                     <th scope="row">${sr_no}</th>
-                    <td>${address}</td>>
+                    <td>${address}</td>
                     <td style="padding: 30px 10px;">${from}</td>
                     <td style="padding: 30px 10px;">${to}</td>
-                    <td>${reason}</td>>
+                    <td>${reason}</td>
                     <td>${item}</td>
                     </tr>
                     `
@@ -271,10 +289,10 @@ function get_data_complaint(location) {
                     data_table_complaint = `
                     <tr class="alert" role="alert">
                     <th scope="row">${sr_no}</th>
-                    <td>${address}</td>>
+                    <td>${address}</td>
                     <td style="padding: 30px 10px;">${from}</td>
                     <td style="padding: 30px 10px;">${to}</td>
-                    <td>${reason}</td>>
+                    <td>${reason}</td>
                     </tr>
                     `
                     data_content_complaint.push(data_table_complaint)
@@ -341,7 +359,9 @@ function get_data_la(location) {
     type.forEach(function (item, index) {
         const db = getDatabase();
         const data = ref(db, location + "la/" + item);
+        console.log(location + "la/" + item)
         onValue(data, (snapshot) => {
+            console.log(snapshot.val())
             var sr_no = 0;
             if (snapshot.exists()) {
                 for (let data in snapshot.val()) {
@@ -349,19 +369,19 @@ function get_data_la(location) {
                     var from = snapshot.val()[data]['from']
                     var to = snapshot.val()[data]['to']
                     var reason = snapshot.val()[data]['reason']
+                    console.log(address)
                     sr_no += 1;
                     data_table_outpass = `
                     <tr class="alert" role="alert">
                     <th scope="row">${sr_no}</th>
-                    <td>${address}</td>>
+                    <td>${address}</td>
                     <td style="padding: 30px 10px;">${from}</td>
                     <td style="padding: 30px 10px;">${to}</td>
-                    <td>${reason}</td>>
+                    <td>${reason}</td>
                     <td>${item}</td>
                     </tr>
                     `
-                    data_content_outpass.push(data_table_outpass)
-
+                    data_content_la.push(data_table_outpass)
                 }
 
                 a_la = `
@@ -417,11 +437,3 @@ get_data_outpass("/student/21185/")
 get_data_la("/student/21185/")
 get_data_complaint("/student/21185/")
 
-function test() {
-    var x = 2;
-    if (x == 2) {
-        return "sahil";
-    }
-}
-
-console.log(test())
