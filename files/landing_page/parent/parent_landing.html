@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="landing.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="parent_landing.css">
 
     <!-- roboto font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
 
     <!-- font Awesome -->
-    <script src="https://kit.fontawesome.com/998b34ac07.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/998b34ac07.js" crossorigin="anonymous"></script> -->
 
     <!-- table css -->
-    <link rel="stylesheet" href="table-02/css/style.css">
+    <link rel="stylesheet" href="../common/table-02/css/style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -60,38 +60,31 @@
     <div class="flex-container">
         <div class="first-column">
             <div class="profile_detail">
-                <img src="/images/profile/profile_male.png" alt="profle_img">
+                <img src="/images/profile/parent.jpg" style="border-radius:50%;" alt="profle_img">
                 <div id="profile_name"><b>Sahil Kamate</b></div>
                 <span id="acd_year">Academic Year: 2021-22</span>
             </div>
 
             <!-- HTML !-->
             <div class="first_clm_tab">
-                <button class="button-61" role="bu0tton" id="outpass_btn">Outpass</button>
-                <button class="button-61" role="bu0tton" id="la_btn">Leave Req</button>
-                <button class="button-61" role="bu0tton" id="complaint_btn">Complaint </button>
+                <button class="button-61" role="bu0tton" id="pending">Pending</button>
+                <button class="button-61" role="bu0tton" id="approved">Approved</button>
+                <button class="button-61" role="bu0tton" id="declined">Declined</button>
             </div>
         </div>
 
         <div class="second-column">
             <div class="title_box">
                 <div class="title_head">
-                    <h2 id="title_txt">Outpass</h2>
+                    <h2 id="title_txt">Leave Application</h2>
                 </div>
 
                 <div class="title_button">
-                    <button class="button-61" role="bu0tton" style="background-color: #56565e;"
-                        id="new_btn">New</button>
-                    <button class="button-61" role="bu0tton" id="history_btn"
-                        style="background-color: #56565e;">History</button>
+
                 </div>
             </div>
 
-            
-
-            
-
-            <div class="content_table">
+            <div class="content_table" id="content_table">
 
             </div>
         </div>
@@ -108,13 +101,13 @@
 <!-- <script src="/main_runner.js" type="module"></script> -->
 
 <!-- navbar js-->
-<script src="navbar.js"></script>
+<script src="../common/navbar.js"></script>
 
 <!-- table  -->
-<script src="table-02/js/jquery.min.js"></script>
-<script src="table-02/js/popper.js"></script>
-<script src="table-02/js/bootstrap.min.js"></script>
-<script src="table-02/js/main.js"></script>
+<script src="../common/table-02/js/jquery.min.js"></script>
+<script src="../common/table-02/js/popper.js"></script>
+<script src="../common/table-02/js/bootstrap.min.js"></script>
+<script src="../common/table-02/js/main.js"></script>
 
 <!-- firebase -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.3/firebase-app.min.js" type="module"></script>
