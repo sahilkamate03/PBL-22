@@ -4,7 +4,7 @@ import { content_table } from "./changes_landing.js"
 
 // firebase import
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
-import { getDatabase, ref, child, get, update } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
+import { getDatabase, ref, child, get, update, onValue } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDdJBzeDdbDQyAfiT2EHnV-pr6Dtol4JLo",
@@ -23,11 +23,16 @@ const app = initializeApp(firebaseConfig);
 function check_things() {
     try {
         const send_req_complaint = document.querySelector(
-            '#send_req_complaint'
-        );
+            '#send_req_complaint')
+        const send_req_la = document.querySelector(
+            '#send_req_la')
+        const send_req_outpass = document.querySelector(
+            '#send_req_outpass');
         // console.log(send_req_complaint)  
         if (check_things) {
-            send_req_complaint.addEventListener("click", writeOuptassUserData)
+            send_req_complaint.addEventListener("click", writeComplaintUserData)
+            send_req_outpass.addEventListener("click", writeOutpassUserData)
+            send_req_la.addEventListener("click", writeLAUserData)
             console.log('Yes');
 
         } else {
@@ -51,7 +56,7 @@ content_table.addEventListener('click', check_things)
 //     })
 // }
 
-function writeOuptassUserData() {
+function writeOutpassUserData() {
     const db = getDatabase();
     // var user_name = document.getElementById('usname').value
     var address = document.getElementById('form_address').value
@@ -85,6 +90,74 @@ function writeOuptassUserData() {
     document.querySelector("#contact-form").reset();
 }
 
+function writeLAUserData() {
+    const db = getDatabase();
+    // var user_name = document.getElementById('usname').value
+    var address = document.getElementById('form_la_address').value
+    var mobile_no = document.getElementById('form_la_mobile').value
+    var from = document.getElementById('form_la_from').value
+    var to = document.getElementById('form_la_to').value
+    var reason = document.getElementById('form_la_reason').value
+
+
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    // console.log(address)
+    // console.log(mobile_no)
+    // console.log(from)
+    // console.log(to)
+    // console.log(reason)
+    update(ref(db, 'student/' + "21185" + "/la/pending/" + date + "_" + time), {
+        address: address,
+        mobile_no: mobile_no,
+        from: from,
+        to: to,
+        reason: reason
+    });
+    console.log('done')
+    document.querySelector('.alert').style.display = 'block';
+    setTimeout(() => {
+        document.querySelector(".alert").style.display = "none";
+        // console.log('timer..')
+    }, 3000);
+    document.querySelector("#contact-form").reset();
+}
+
+function writeComplaintUserData() {
+    const db = getDatabase();
+    // var user_name = document.getElementById('usname').value
+    var address = document.getElementById('form_subject_complaint').value
+    var mobile_no = document.getElementById('form_mobile_complaint').value
+    var from = document.getElementById('form_regard_complaint').value
+    var to = document.getElementById('form_to_complaint').value
+    var reason = document.getElementById('form_desc_complaint').value
+
+
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    // console.log(address)
+    // console.log(mobile_no)
+    // console.log(from)
+    // console.log(to)
+    // console.log(reason)
+    update(ref(db, 'student/' + "21185" + "/complaint/" + date + "_" + time), {
+        address: address,
+        mobile_no: mobile_no,
+        from: from,
+        to: to,
+        reason: reason
+    });
+    console.log('done')
+    document.querySelector('.alert').style.display = 'block';
+    setTimeout(() => {
+        document.querySelector(".alert").style.display = "none";
+        // console.log('timer..')
+    }, 3000);
+    document.querySelector("#contact-form").reset();
+}
+
 // for outpass
 var data_table_outpass;
 var adder_table_outpass;
@@ -99,7 +172,10 @@ function get_data_outpass(location) {
     const dbRef = ref(getDatabase());
     type.forEach(function (item, index) {
         // console.log(location + "outpass/" + item)
-        get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
+        const db = getDatabase();
+        const data = ref(db, location + "outpass/" + item);
+        onValue(data, (snapshot) => {
+        // get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
             var sr_no = 0;
             if (snapshot.exists()) {
                 for (let data in snapshot.val()) {
@@ -162,9 +238,7 @@ function get_data_outpass(location) {
                 console.log("No data available");
             }
             // return ("sahil")
-        }).catch((error) => {
-            console.error(error);
-        });
+        })
     });
 
 
@@ -175,16 +249,18 @@ var adder_table_complaint;
 let data_content_complaint = [];
 let a_complaint;
 let b_complaint;
-// let type = ['pending', 'approve', 'decline']
+let types = ['pending']
 // let output_data_outpass;
 // function to fetch data for display from firebase
 // const sahil = 0;
 function get_data_complaint(location) {
     const dbRef = ref(getDatabase());
-    type.forEach(function (item, index) {
-        // console.log(location+"outpass/"+item)
-        get(child(dbRef, location + "complaint/" + item)).then((snapshot) => {
+    types.forEach(function (item, index) {
+        const db = getDatabase();
+        const data = ref(db, location + "complaint/");
+        onValue(data, (snapshot) => {
             var sr_no = 0;
+            console.log(location + "complaint/")
             if (snapshot.exists()) {
                 for (let data in snapshot.val()) {
                     var address = snapshot.val()[data]['address']
@@ -199,7 +275,6 @@ function get_data_complaint(location) {
                     <td style="padding: 30px 10px;">${from}</td>
                     <td style="padding: 30px 10px;">${to}</td>
                     <td>${reason}</td>>
-                    <td>${item}</td>
                     </tr>
                     `
                     data_content_complaint.push(data_table_complaint)
@@ -220,7 +295,7 @@ function get_data_complaint(location) {
                                             <th>From</th>
                                             <th>To</th>
                                             <th>Reason</th>
-                                            <th>Status</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>`
@@ -246,9 +321,7 @@ function get_data_complaint(location) {
                 console.log("No data available");
             }
             // return ("sahil")
-        }).catch((error) => {
-            console.error(error);
-        });
+        })
     });
 
 
@@ -266,8 +339,9 @@ let b_la;
 function get_data_la(location) {
     const dbRef = ref(getDatabase());
     type.forEach(function (item, index) {
-        // console.log(location+"outpass/"+item)
-        get(child(dbRef, location + "la/" + item)).then((snapshot) => {
+        const db = getDatabase();
+        const data = ref(db, location + "la/" + item);
+        onValue(data, (snapshot) => {
             var sr_no = 0;
             if (snapshot.exists()) {
                 for (let data in snapshot.val()) {
@@ -316,7 +390,7 @@ function get_data_la(location) {
                 </div>
                 </div>
                 </section>`
-                data_la.forEach(function (item, index) {
+                data_content_la.forEach(function (item, index) {
 
                     a_la = a_la + data_content_la[index]
                     //   console.log(item);
@@ -330,9 +404,7 @@ function get_data_la(location) {
                 console.log("No data available");
             }
             // return ("sahil")
-        }).catch((error) => {
-            console.error(error);
-        });
+        })
     });
 
 

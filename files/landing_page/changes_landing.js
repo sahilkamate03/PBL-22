@@ -147,7 +147,7 @@ function new_btns() {
                                                     <div class="col-md-12">
 
                                                         <input  class="btn btn-success btn-send  pt-2 btn-block
-                                        " value="Send Request" style="background-color: #6200ee; cursor:pointer;" id ="send_req_complaint">
+                                        " value="Send Request" style="background-color: #6200ee; cursor:pointer;" id ="send_req_outpass">
 
                                                     </div>
 
@@ -190,7 +190,7 @@ function new_btns() {
 
                                     <div class="container">
                                         <form id="contact-form" role="form">
-
+                                        <div class="alert" style="display:none; color:white; background-color:green;text-align:center;"><b>Your message was sent</b></div>
 
 
                                             <div class="controls">
@@ -199,7 +199,7 @@ function new_btns() {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="form_name">Address *</label>
-                                                            <input id="form_name" type="text" name="name"
+                                                            <input id="form_la_address" type="text" name="name"
                                                                 class="form-control"
                                                                 placeholder="Please enter Add. on Leave *"
                                                                 required="required" data-error="Firstname is required.">
@@ -209,7 +209,7 @@ function new_btns() {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="form_lastname">Mobile Number *</label>
-                                                            <input id="form_lastname" type="text" name="surname"
+                                                            <input id="form_la_mobile" type="text" name="surname"
                                                                 class="form-control"
                                                                 placeholder="Please enter Gaurdian No. *"
                                                                 required="required" data-error="Lastname is required.">
@@ -220,7 +220,7 @@ function new_btns() {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="form_email">From *</label>
-                                                            <input id="form_email" type="date" name="email"
+                                                            <input id="form_la_from" type="date" name="email"
                                                                 class="form-control"
                                                                 placeholder="Please enter your email *"
                                                                 required="required"
@@ -232,7 +232,7 @@ function new_btns() {
                                                         <div class="form-group">
                                                             <label for="form_need">To *</label>
                                                             <!-- <label for="form_email">From *</label> -->
-                                                            <input id="form_email" type="date" name="email"
+                                                            <input id="form_la_to" type="date" name="email"
                                                                 class="form-control"
                                                                 placeholder="Please enter your email *"
                                                                 required="required"
@@ -255,7 +255,7 @@ function new_btns() {
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="form_message">Reason *</label>
-                                                            <textarea id="form_message" name="message"
+                                                            <textarea id="form_la_reason" name="message"
                                                                 class="form-control"
                                                                 placeholder="Write your message here." rows="4"
                                                                 required="required"
@@ -268,7 +268,7 @@ function new_btns() {
                                                     <div class="col-md-12">
 
                                                         <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                                        " value="Send Request" style="background-color: #6200ee;" id ="send_req_complaint">
+                                        " value="Send Request" style="background-color: #6200ee;" id ="send_req_la">
 
                                                     </div>
 
@@ -310,7 +310,7 @@ function new_btns() {
 
                                     <div class="container">
                                         <form id="contact-form" role="form">
-
+                                        <div class="alert" style="display:none; color:white; background-color:green;text-align:center;"><b>Your message was sent</b></div>
 
 
                                             <div class="controls">
@@ -319,7 +319,7 @@ function new_btns() {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="form_name">Subject *</label>
-                                                            <input id="form_name" type="text" name="name"
+                                                            <input id="form_subject_complaint" type="text" name="name"
                                                                 class="form-control"
                                                                 placeholder="Please enter subject *"
                                                                 required="required" data-error="Firstname is required.">
@@ -329,7 +329,7 @@ function new_btns() {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="form_lastname">Mobile Number *</label>
-                                                            <input id="form_lastname" type="text" name="surname"
+                                                            <input id="form_mobile_complaint" type="text" name="surname"
                                                                 class="form-control"
                                                                 placeholder="Please enter Gaurdian No. *"
                                                                 required="required" data-error="Lastname is required.">
@@ -340,7 +340,7 @@ function new_btns() {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="form_email">Regarding *</label>
-                                                            <select id="form_need" name="need" class="form-control"
+                                                            <select id="form_regard_complaint" name="need" class="form-control"
                                                                 required="required"
                                                                 data-error="Please specify your need.">
                                                                 <option value="" selected disabled>--Select Your Issue--
@@ -359,7 +359,7 @@ function new_btns() {
                                                             <label for="form_need">To *</label>
                                                             <!-- <label for="form_email">From *</label> -->
                                                             
-                                                            <select id="form_need" name="need" class="form-control"
+                                                            <select id="form_to_complaint" name="need" class="form-control"
                                                                 required="required"
                                                                 data-error="Please specify your need.">
                                                                 <option value="" selected disabled>--Select Your Issue--
@@ -367,6 +367,7 @@ function new_btns() {
                                                                 <option>HOD</option>
                                                                 <option>Class Teacher</option>
                                                                 <option>Joint Director</option>
+                                                                <option>Warden</option>
                                                                 <option>Other</option>
                                                             </select>
 
@@ -377,7 +378,7 @@ function new_btns() {
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="form_message">Description *</label>
-                                                            <textarea id="form_message" name="message"
+                                                            <textarea id="form_desc_complaint" name="message"
                                                                 class="form-control"
                                                                 placeholder="Write your message here." rows="4"
                                                                 required="required"
@@ -425,7 +426,7 @@ function history_btns() {
     tab_opened = "history_btn";
     document.getElementById("history_btn").style.backgroundColor = "#6200ee";
     document.getElementById("new_btn").style.backgroundColor = "#56565e";
-    
+
     if (title_innerText == "Outpass") {
         console.log(title_innerText)
         console.log("inside outpass")
