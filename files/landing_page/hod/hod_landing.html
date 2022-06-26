@@ -1,0 +1,120 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="warden_landing.css">
+
+    <!-- roboto font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+
+    <!-- inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+
+    <!-- font Awesome -->
+    <!-- <script src="https://kit.fontawesome.com/998b34ac07.js" crossorigin="anonymous"></script> -->
+
+    <!-- table css -->
+    <link rel="stylesheet" href="../common/table-02/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" data-toggle="open-navbar1">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="#">
+                    <h4>Obilivion<span>Portal</span></h4>
+                </a>
+            </div>
+
+            <div class="navbar-menu" id="open-navbar1">
+                <ul class="navbar-nav">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Signin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="seperator">
+
+    </div>
+
+    <div class="flex-container">
+        <div class="first-column">
+            <div class="profile_detail">
+                <img src="/images/profile/warden.png"  alt="profle_img">
+                <span style="color: black;font-size: 18px;"><b><center>Parents/Gaurdians:</b></center></span>
+                <div id="profile_name"><b>Sahil Kamate</b></div>
+                <!-- <span id="acd_year">Academic Year: 2021-22</span> -->
+            </div>
+
+            <!-- HTML !-->
+            <div class="first_clm_tab">
+                <button class="button-61" role="bu0tton" id="pending">Pending</button>
+                <button class="button-61" role="bu0tton" id="approved">Approved</button>
+                <button class="button-61" role="bu0tton" id="declined">Declined</button>
+            </div>
+        </div>
+
+        <div class="second-column">
+            <div class="title_box">
+                <div class="title_head">
+                    <h2 id="title_txt">Leave Application</h2>
+                </div>
+
+                <div class="title_button">
+
+                </div>
+            </div>
+
+            <div class="content_table" id="content_table">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy Copyright Obilivion 2022
+    </div>
+
+
+</body>
+<script src="landing.js" type="module"></script>
+<script src="changes_landing.js" type="module"></script>
+<!-- <script src="/main_runner.js" type="module"></script> -->
+
+<!-- navbar js-->
+<script src="../common/navbar.js"></script>
+
+<!-- table  -->
+<script src="../common/table-02/js/jquery.min.js"></script>
+<script src="../common/table-02/js/popper.js"></script>
+<script src="../common/table-02/js/bootstrap.min.js"></script>
+<script src="../common/table-02/js/main.js"></script>
+
+<!-- firebase -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.2/firebase-database.min.js" type="module"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.4-20220621210445/firebase-database-compat.min.js" type="module"></script> -->
+
+
+
+</html>

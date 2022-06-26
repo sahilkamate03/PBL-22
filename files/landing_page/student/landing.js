@@ -4,7 +4,7 @@ import { content_table, title_innerText } from "./changes_landing.js"
 
 // firebase import
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
-import { getDatabase, ref, child, get, update, onValue } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
+import { getDatabase, ref, child, get, update, onValue, set } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDdJBzeDdbDQyAfiT2EHnV-pr6Dtol4JLo",
@@ -42,13 +42,13 @@ function check_things() {
         if (check_things) {
             // send_req_complaint.addEventListener("click", writeComplaintUserData)
             if (title_innerText == "Leave Application") {
-            send_req.addEventListener("click", writeLAUserData)
+                send_req.addEventListener("click", writeLAUserData)
             }
             else if (title_innerText == "Complaint") {
-            send_req.addEventListener("click", writeComplaintUserData)
+                send_req.addEventListener("click", writeComplaintUserData)
             }
             else if (title_innerText == "Complaint") {
-            send_req.addEventListener("click", writeOutpassUserData)
+                send_req.addEventListener("click", writeOutpassUserData)
             }
             // send_req_la.addEventListener("click", writeLAUserData)
             console.log('Yes');
@@ -82,7 +82,7 @@ function writeOutpassUserData() {
     var from = document.getElementById('form_from').value
     var to = document.getElementById('form_to').value
     var reason = document.getElementById('form_reason').value
-
+    var status = "pending"
 
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -92,13 +92,15 @@ function writeOutpassUserData() {
     // console.log(from)
     // console.log(to)
     // console.log(reason)
-    update(ref(db, 'student/' + "21185" + "/outpass/pending/" + date + "_" + time), {
+    update(ref(db, 'req/student/outpass' + "/status/" + "21185/" + from + "_" + to), {
         address: address,
         mobile_no: mobile_no,
         from: from,
         to: to,
-        reason: reason
+        reason: reason,
+        status: status
     });
+
     console.log('done')
     document.querySelector('.alert').style.display = 'block';
     setTimeout(() => {
@@ -116,7 +118,7 @@ function writeLAUserData() {
     var from = document.getElementById('form_la_from').value
     var to = document.getElementById('form_la_to').value
     var reason = document.getElementById('form_la_reason').value
-
+    var status = "pending"
 
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -126,7 +128,16 @@ function writeLAUserData() {
     // console.log(from)
     // console.log(to)
     // console.log(reason)
-    update(ref(db, 'student/' + "21185" + "/la/pending/" + date + "_" + time), {
+    update(ref(db, 'req/student/la/status/' + "21185/" + from + "_" + to), {
+        address: address,
+        mobile_no: mobile_no,
+        from: from,
+        to: to,
+        reason: reason,
+        status : status
+    });
+
+    set(ref(db, 'req/parent/la/pending/' + "21185/" + from + "_" + to), {
         address: address,
         mobile_no: mobile_no,
         from: from,
@@ -188,6 +199,7 @@ let type = ['pending', 'approve', 'decline']
 // const sahil = 0;
 function get_data_outpass(location) {
     const dbRef = ref(getDatabase());
+    
     type.forEach(function (item, index) {
         // console.log(location + "outpass/" + item)
         const db = getDatabase();

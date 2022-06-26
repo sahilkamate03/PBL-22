@@ -177,7 +177,7 @@ function pending_fxn() {
     content_table.innerHTML = ''
     // console.log(location + "outpass/" + item)
     const db = getDatabase();
-    const data = ref(db, "req/parent/la/pending/" + "21185");
+    const data = ref(db, "req/parent/la/approved/" + "21185");
     if (no_of_times_pending == 0) {
         onValue(data, (snapshot) => {
             // get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
@@ -255,68 +255,12 @@ function pending_fxn() {
         }) // onValue 
         no_of_times_pending += 1
     }
-    // content_table.innerHTML = `
-    // <section class="ftco-section">
-    //                 <div class="container">
-    //                     <div class="row">
-    //                         <div class="col-md-12">
-    //                             <div class="table-wrap">
-    //                                 <table class="table">
-    //                                     <thead class="thead-dark">
-    //                                         <tr>
-    //                                             <th>Reg No.</th>
-    //                                             <th>From</th>
-    //                                             <th>To</th>
-    //                                             <th>Reason</th>
-    //                                             <th>Address</th>
-    //                                             <th>Mobile No.</th>
-    //                                             <th style="text-align:right;"></th>
-    //                                             <th style="text-align:right;"></th>
-    //                                             <!-- <th style="text-align: center;">Accept/Reject</th> -->
-    //                                             <!-- <th>A/R</th> -->
-    //                                             <!-- <th>Date</th> -->
-    //                                         </tr>
-    //                                     </thead>
-    //                                     <tbody>                                    
-    //                                         <tr class="alert" role="alert">
-    //                                             <th scope="row" class='sr_no'>21185</th>
-    //                                             <td style="padding: 30px 10px;">15 Jun 2022</td>
-    //                                             <td style="padding: 30px 10px;">10 July 2022</td>
-    //                                             <td>Sister Wedding</td>
-    //                                             <td>Gujarat</td>
-    //                                             <td>8767272564</td>
-    //                                             <td>                
-    //                                                 <a href="#" class="close accept" data-dismiss="alert" aria-label="Close" style='text-align: center;'>
-    //                                                     <span class="doing-accept" aria-hidden="true" style='font-size:14px; color:green;' >Accept</span>
-
-    //                                                 </a>
-    //                                             </td>
-    //                                             <td>                                                                                                         
-    //                                                 <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-    //                                                     <span aria-hidden="true" class="doing-decline" style='font-size:14px;'>Reject</span>
-    //                                                 </a>
-    //                                             </td>
-    //                                         </tr>
-    //                                     </tbody>
-    //                                 </table>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </section>
-    // `;
 
     content_table.innerHTML = adder_table_pending
 
 } // function
 
 
-// document.querySelector('.doing-accept').addEventListener('click',()=>{
-//     console.log('doing-accept');
-// })
-// function declined_fxn() {
-//     console.log('declined')
-// }
 
 var from;
 var from_text;
@@ -353,7 +297,8 @@ key.addEventListener('click', (e) => {
         reg_no = from.previousElementSibling
         reg_no_text = from.previousElementSibling.innerText
 
-        accept_parent(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
+        accept_warden(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
+        update_status(reg_no_text,from_text,to_text)
     }
 
     else if (e.target.className == 'doing-decline') {
@@ -377,27 +322,27 @@ key.addEventListener('click', (e) => {
         reg_no = from.previousElementSibling
         reg_no_text = from.previousElementSibling.innerText
 
-        declined_parent(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
+        declined_warden(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
     }
 
 
 })
 
-function accept_parent(reg_no, from, to, reason, address, mobile_no) {
+function accept_warden(reg_no, from, to, reason, address, mobile_no) {
     const db = getDatabase();
     var today = new Date();
-    set(ref(db, 'req/parent/la/approved/' + reg_no + '/' + from + '_' + to), {
+    set(ref(db, 'req/warden/la/approved/' + reg_no + '/' + from + '_' + to), {
         from: from,
         to: to,
         reason: reason,
         address: address,
         mobile_no: mobile_no
     });
-    remove(ref(db, 'req/parent/la/pending/' + reg_no + '/' + from + '_' + to), {})
+    remove(ref(db, 'req/warden/la/pending/' + reg_no + '/' + from + '_' + to), {})
     // req_fwd(reg_no, from, to, reason, address, mobile_no)
 }
 
-function declined_parent(reg_no, from, to, reason, address, mobile_no) {
+function declined_warden(reg_no, from, to, reason, address, mobile_no) {
     const db = getDatabase();
     set(ref(db, 'req/student/la/declined/' + reg_no + '/' + from + '_' + to), {
         from: from,
@@ -407,8 +352,15 @@ function declined_parent(reg_no, from, to, reason, address, mobile_no) {
         mobile_no: mobile_no,
         by: 'Parents'
     });
-    remove(ref(db, 'req/parent/la/pending/' + reg_no + '/' + from + '_' + to), {})
+    remove(ref(db, 'req/warden/la/pending/' + reg_no + '/' + from + '_' + to), {})
     console.log('done')
+}
+
+function update_status(reg_no, from, to) {
+    const db = getDatabase();
+    update(ref(db, 'req/student/la/status/' + reg_no + '/' + from + '_' + to), {
+        status: "Warden Approved"
+    });
 }
 
 function req_fwd(reg_no, from, to, reason, address, mobile_no) {
