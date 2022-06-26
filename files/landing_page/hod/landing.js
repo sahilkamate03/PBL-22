@@ -39,7 +39,7 @@ var data_table_approved
 var no_of_times_approved = 0;
 function approved_fxn() {
     const db = getDatabase();
-    const data = ref(db, 'student/' + "21185" + "/la/pending/");
+    const data = ref(db, "req/hod/la/approved/" + "21185");
     if (no_of_times_approved == 0) {
         onValue(data, (snapshot) => {
             console.log(snapshot.val())
@@ -105,7 +105,7 @@ var data_table_declined;
 var no_of_times_declined = 0;
 function declined_fxn() {
     const db = getDatabase();
-    const data = ref(db, 'student/' + "21185" + "/la/pending/");
+    const data = ref(db, "req/hod/la/declined/" + "21185");
     if (no_of_times_declined == 0) {
         onValue(data, (snapshot) => {
             console.log(snapshot.val())
@@ -177,7 +177,7 @@ function pending_fxn() {
     content_table.innerHTML = ''
     // console.log(location + "outpass/" + item)
     const db = getDatabase();
-    const data = ref(db, "req/parent/la/approved/" + "21185");
+    const data = ref(db, "req/hod/la/pending/" + "21185");
     if (no_of_times_pending == 0) {
         onValue(data, (snapshot) => {
             // get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
@@ -297,7 +297,7 @@ key.addEventListener('click', (e) => {
         reg_no = from.previousElementSibling
         reg_no_text = from.previousElementSibling.innerText
 
-        accept_warden(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
+        accept_hod(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
         update_status(reg_no_text,from_text,to_text)
     }
 
@@ -322,27 +322,35 @@ key.addEventListener('click', (e) => {
         reg_no = from.previousElementSibling
         reg_no_text = from.previousElementSibling.innerText
 
-        declined_warden(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
+        declined_hod(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
     }
 
 
 })
 
-function accept_warden(reg_no, from, to, reason, address, mobile_no) {
+function accept_hod(reg_no, from, to, reason, address, mobile_no) {
     const db = getDatabase();
     var today = new Date();
-    set(ref(db, 'req/warden/la/approved/' + reg_no + '/' + from + '_' + to), {
+    set(ref(db, 'req/hod/la/approved/' + reg_no + '/' + from + '_' + to), {
         from: from,
         to: to,
         reason: reason,
         address: address,
         mobile_no: mobile_no
     });
-    remove(ref(db, 'req/warden/la/pending/' + reg_no + '/' + from + '_' + to), {})
+
+    set(ref(db, 'req/jd/la/pending/' + reg_no + '/' + from + '_' + to), {
+        from: from,
+        to: to,
+        reason: reason,
+        address: address,
+        mobile_no: mobile_no
+    });
+    remove(ref(db, 'req/hod/la/pending/' + reg_no + '/' + from + '_' + to), {})
     // req_fwd(reg_no, from, to, reason, address, mobile_no)
 }
 
-function declined_warden(reg_no, from, to, reason, address, mobile_no) {
+function declined_hod(reg_no, from, to, reason, address, mobile_no) {
     const db = getDatabase();
     set(ref(db, 'req/student/la/declined/' + reg_no + '/' + from + '_' + to), {
         from: from,
@@ -352,14 +360,22 @@ function declined_warden(reg_no, from, to, reason, address, mobile_no) {
         mobile_no: mobile_no,
         by: 'Parents'
     });
-    remove(ref(db, 'req/warden/la/pending/' + reg_no + '/' + from + '_' + to), {})
+    set(ref(db, 'req/hod/la/declined/' + reg_no + '/' + from + '_' + to), {
+        from: from,
+        to: to,
+        reason: reason,
+        address: address,
+        mobile_no: mobile_no,
+        by: 'Parents'
+    });
+    remove(ref(db, 'req/hod/la/pending/' + reg_no + '/' + from + '_' + to), {})
     console.log('done')
 }
 
 function update_status(reg_no, from, to) {
     const db = getDatabase();
     update(ref(db, 'req/student/la/status/' + reg_no + '/' + from + '_' + to), {
-        status: "Warden Approved"
+        status: "HOD Approved"
     });
 }
 

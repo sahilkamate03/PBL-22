@@ -39,7 +39,7 @@ var data_table_approved
 var no_of_times_approved = 0;
 function approved_fxn() {
     const db = getDatabase();
-    const data = ref(db, 'student/' + "21185" + "/la/pending/");
+    const data = ref(db, "req/warden/la/approved/" + "21185");
     if (no_of_times_approved == 0) {
         onValue(data, (snapshot) => {
             console.log(snapshot.val())
@@ -105,7 +105,7 @@ var data_table_declined;
 var no_of_times_declined = 0;
 function declined_fxn() {
     const db = getDatabase();
-    const data = ref(db, 'student/' + "21185" + "/la/pending/");
+    const data = ref(db, "req/warden/la/declined/" + "21185");
     if (no_of_times_declined == 0) {
         onValue(data, (snapshot) => {
             console.log(snapshot.val())
@@ -177,7 +177,7 @@ function pending_fxn() {
     content_table.innerHTML = ''
     // console.log(location + "outpass/" + item)
     const db = getDatabase();
-    const data = ref(db, "req/parent/la/approved/" + "21185");
+    const data = ref(db, "req/warden/la/pending/" + "21185");
     if (no_of_times_pending == 0) {
         onValue(data, (snapshot) => {
             // get(child(dbRef, location + "outpass/" + item)).then((snapshot) => {
@@ -338,6 +338,13 @@ function accept_warden(reg_no, from, to, reason, address, mobile_no) {
         address: address,
         mobile_no: mobile_no
     });
+    set(ref(db, 'req/ct/la/pending/' + reg_no + '/' + from + '_' + to), {
+        from: from,
+        to: to,
+        reason: reason,
+        address: address,
+        mobile_no: mobile_no
+    });
     remove(ref(db, 'req/warden/la/pending/' + reg_no + '/' + from + '_' + to), {})
     // req_fwd(reg_no, from, to, reason, address, mobile_no)
 }
@@ -345,6 +352,14 @@ function accept_warden(reg_no, from, to, reason, address, mobile_no) {
 function declined_warden(reg_no, from, to, reason, address, mobile_no) {
     const db = getDatabase();
     set(ref(db, 'req/student/la/declined/' + reg_no + '/' + from + '_' + to), {
+        from: from,
+        to: to,
+        reason: reason,
+        address: address,
+        mobile_no: mobile_no,
+        by: 'Parents'
+    });
+    set(ref(db, 'req/warden/la/declined/' + reg_no + '/' + from + '_' + to), {
         from: from,
         to: to,
         reason: reason,
