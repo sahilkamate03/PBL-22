@@ -134,10 +134,10 @@ function writeLAUserData() {
         from: from,
         to: to,
         reason: reason,
-        status : status
+        status: status
     });
 
-    set(ref(db, 'req/parent/la/pending/' + "21185/" + from + "_" + to), {
+    set(ref(db, 'req/jd/la/pending/' + "21185/" + from + "_" + to), {
         address: address,
         mobile_no: mobile_no,
         from: from,
@@ -199,7 +199,7 @@ let type = ['pending', 'approve', 'decline']
 // const sahil = 0;
 function get_data_outpass(location) {
     const dbRef = ref(getDatabase());
-    
+
     type.forEach(function (item, index) {
         // console.log(location + "outpass/" + item)
         const db = getDatabase();
@@ -290,13 +290,15 @@ function get_data_complaint(location) {
         const data = ref(db, location + "complaint/");
         onValue(data, (snapshot) => {
             var sr_no = 0;
-            console.log(location + "complaint/")
+            // console.log(location + "complaint/")
             if (snapshot.exists()) {
                 for (let data in snapshot.val()) {
                     var address = snapshot.val()[data]['address']
                     var from = snapshot.val()[data]['from']
                     var to = snapshot.val()[data]['to']
                     var reason = snapshot.val()[data]['reason']
+                    
+                    console.log(status)
                     sr_no += 1;
                     data_table_complaint = `
                     <tr class="alert" role="alert">
@@ -305,6 +307,7 @@ function get_data_complaint(location) {
                     <td style="padding: 30px 10px;">${from}</td>
                     <td style="padding: 30px 10px;">${to}</td>
                     <td>${reason}</td>
+                    
                     </tr>
                     `
                     data_content_complaint.push(data_table_complaint)
@@ -362,41 +365,51 @@ var adder_table_la;
 let data_content_la = [];
 let a_la;
 let b_la;
+var time_la = 0
 // let type = ['pending', 'approve', 'decline']
 // let output_data_outpass;
 // function to fetch data for display from firebase
 // const sahil = 0;
 function get_data_la(location) {
     const dbRef = ref(getDatabase());
-    type.forEach(function (item, index) {
-        const db = getDatabase();
-        const data = ref(db, location + "la/" + item);
-        console.log(location + "la/" + item)
-        onValue(data, (snapshot) => {
-            console.log(snapshot.val())
-            var sr_no = 0;
-            if (snapshot.exists()) {
-                for (let data in snapshot.val()) {
-                    var address = snapshot.val()[data]['address']
-                    var from = snapshot.val()[data]['from']
-                    var to = snapshot.val()[data]['to']
-                    var reason = snapshot.val()[data]['reason']
-                    console.log(address)
-                    sr_no += 1;
-                    data_table_outpass = `
+            const db = getDatabase();
+            const data = ref(db, location);
+            console.log(location)
+            onValue(data, (snapshot) => {
+                console.log(snapshot.val())
+                var sr_no = 0;
+                console.log(snapshot.val())
+                if (snapshot.exists()) {
+                    for (let data in snapshot.val()) {
+                        var address = snapshot.val()[data]['address']
+                        var from = snapshot.val()[data]['from']
+                        var to = snapshot.val()[data]['to']
+                        var reason = snapshot.val()[data]['reason']
+                        var status = snapshot.val()[data]['status']
+                        var link = snapshot.val()[data]['id']
+                        var display_link;
+                        console.log(address)
+                        sr_no += 1;
+                        if (link == undefined){
+                            display_link = ''
+                        }else{
+                            display_link = `<a href="http://127.0.0.1:5500/files/qr/qr_scan.html?token=${link}&type=scan"  target=#blank>Link</a>`
+                        }
+                        data_table_la = `
                     <tr class="alert" role="alert">
                     <th scope="row">${sr_no}</th>
                     <td>${address}</td>
                     <td style="padding: 30px 10px;">${from}</td>
                     <td style="padding: 30px 10px;">${to}</td>
                     <td>${reason}</td>
-                    <td>${item}</td>
+                    <td>${status}</td>
+                    <td>${display_link}</td>
                     </tr>
                     `
-                    data_content_la.push(data_table_outpass)
-                }
+                        data_content_la.push(data_table_la)
+                    }
 
-                a_la = `
+                    a_la = `
                 <section class="ftco-section">
                 <div class="container">
                     <div class="row">
@@ -411,10 +424,11 @@ function get_data_la(location) {
                                             <th>To</th>
                                             <th>Reason</th>
                                             <th>Status</th>
+                                            <th>Link</th>
                                         </tr>
                                     </thead>
                                     <tbody>`
-                b_la = `       
+                    b_la = `       
                 </tbody>
                 </table>
                 </div>
@@ -422,30 +436,30 @@ function get_data_la(location) {
                 </div>
                 </div>
                 </section>`
-                data_content_la.forEach(function (item, index) {
+                    data_content_la.forEach(function (item, index) {
 
-                    a_la = a_la + data_content_la[index]
-                    //   console.log(item);
-                });
-                adder_table_la = a_la + b_la
-
-            }
+                        a_la = a_la + data_content_la[index]
+                        //   console.log(item);
+                    });
 
 
-            else {
-                console.log("No data available");
-            }
-            // return ("sahil")
-        })
-    });
+                    adder_table_la = a_la + b_la
+                }
 
 
+                else {
+                    console.log("No data available");
+                }
+                // return ("sahil")
+            })
+        
+    
 }
 
 export { get_data_outpass, get_data_la, get_data_complaint, adder_table_outpass, adder_table_la, adder_table_complaint }
 // get_data("/student/21185/pending/outpass/2022-6-18_21:21:28")
 
-get_data_outpass("/student/21185/")
-get_data_la("/student/21185/")
-get_data_complaint("/student/21185/")
+get_data_outpass("student/outpass/status/21185/")
+get_data_la("req/student/la/status/21185")
+get_data_complaint("student/complaint/status/21185/")
 

@@ -297,8 +297,9 @@ key.addEventListener('click', (e) => {
         reg_no = from.previousElementSibling
         reg_no_text = from.previousElementSibling.innerText
 
+        id = id
         accept_jd(reg_no_text, from_text, to_text, reason_text, address_text, mobile_no_text)
-        update_status(reg_no_text,from_text,to_text)
+        update_status(reg_no_text,from_text,to_text,id)
     }
 
     else if (e.target.className == 'doing-decline') {
@@ -338,6 +339,7 @@ function accept_jd(reg_no, from, to, reason, address, mobile_no) {
         address: address,
         mobile_no: mobile_no
     });
+    live_update(reg_no,from,to,reason,a_approved,mobile_no)
     remove(ref(db, 'req/jd/la/pending/' + reg_no + '/' + from + '_' + to), {})
     // req_fwd(reg_no, from, to, reason, address, mobile_no)
 }
@@ -364,22 +366,29 @@ function declined_jd(reg_no, from, to, reason, address, mobile_no) {
     console.log('done')
 }
 
-function update_status(reg_no, from, to) {
+function update_status(reg_no, from, to,id) {
     const db = getDatabase();
     update(ref(db, 'req/student/la/status/' + reg_no + '/' + from + '_' + to), {
-        status: "Joint Director Approved"
+        status: "Joint Director Approved",
+        id : id
     });
 }
 
-function req_fwd(reg_no, from, to, reason, address, mobile_no) {
+var id;
+function live_update(reg_no, from, to, reason, address, mobile_no) {
     const db = getDatabase();
-    set(ref(db, 'warden/req/la/pending/' + reg_no + '/' + from + '_' + to), {
+    id = ID()
+    update(ref(db, 'live/' + id ), {
         from: from,
         to: to,
         reason: reason,
         address: address,
-        mobile_no: mobile_no
+        mobile_no: mobile_no,
+        reg_no:reg_no
     });
     console.log('done')
 }
-// window.onload = console.log("loaded");
+
+var ID = function () {
+    return '_' + Math.random().toString(36).substr(2, 9);
+};

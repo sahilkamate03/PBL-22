@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="qr_style.css">
 
     <!-- roboto font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,12 +17,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-
-    <!-- font Awesome -->
-    <!-- <script src="https://kit.fontawesome.com/998b34ac07.js" crossorigin="anonymous"></script> -->
-
-    <!-- table css -->
-    <link rel="stylesheet" href="../common/table-02/css/style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -58,6 +52,9 @@
     </div>
 
     <div class="flex-container">
+
+
+
         <div class="first-column">
             <div class="profile_detail">
                 <img src="/images/profile/profile_male.png" alt="profle_img">
@@ -66,32 +63,30 @@
             </div>
 
             <!-- HTML !-->
-            <div class="first_clm_tab">
-                <button class="button-61" role="bu0tton" id="outpass_btn">Outpass</button>
-                <button class="button-61" role="bu0tton" id="la_btn">Leave Req</button>
-                <button class="button-61" role="bu0tton" id="complaint_btn">Complaint </button>
-            </div>
+
         </div>
 
         <div class="second-column">
             <div class="title_box">
                 <div class="title_head">
-                    <h2 id="title_txt">Outpass</h2>
+                    <h2 id="title_txt">QR Code</h2>
                 </div>
 
-                <div class="title_button">
-                    <button class="button-61" role="bu0tton" style="background-color: #56565e;"
-                        id="new_btn">New</button>
-                    <button class="button-61" role="bu0tton" id="history_btn"
-                        style="background-color: #56565e;">History</button>
-                </div>
+
             </div>
 
             <div class="content_table">
-
+                <div id="qrcode"></div>
+                <br>    
+                <br>    
+                <button class="button-61" role="bu0tton" id="print_btn">Print</button>
             </div>
         </div>
     </div>
+
+
+
+
 
     <div class="footer">
         &copy Copyright Obilivion 2022
@@ -99,22 +94,25 @@
 
 
 </body>
-<script src="landing.js" type="module"></script>
-<script src="changes_landing.js" type="module"></script>
+
+<script src="qrcode.min.js"></script>
+
+
+
+<script src="qr.js" type="module"></script>
+<!-- <script src="changes_landing.js" type="module"></script> -->
 <!-- <script src="/main_runner.js" type="module"></script> -->
 
 <!-- navbar js-->
 <script src="../common/navbar.js"></script>
 
-<!-- table  -->
-<script src="../common/table-02/js/jquery.min.js"></script>
-<script src="../common/table-02/js/popper.js"></script>
-<script src="../common/table-02/js/bootstrap.min.js"></script>
-<script src="../common/table-02/js/main.js"></script>
 
 <!-- firebase -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.2/firebase-database.min.js" type="module"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.4-20220621210445/firebase-database-compat.min.js" type="module"></script> -->
+
+<script src="../qr_sys/qrcode.min.js"></script>
 
 
 </html>
