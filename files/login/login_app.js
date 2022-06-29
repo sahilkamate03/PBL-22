@@ -26,27 +26,29 @@ const app = initializeApp(firebaseConfig);
 //retrieve data
 const submit = document.querySelector('#submit');
 submit.addEventListener('click', () => {
+    console.log('hello')
+    window.location.replace('http://127.0.0.1:5500/files/landing_page/student/landing.html')
     // console.log('processing.....')
-    const dbRef = ref(getDatabase());
-    // console.log(dbRef)
-    get(child(dbRef, "login")).then((snapshot) => {
-        if (snapshot.exists()) {
-            // console.log(snapshot.val())
-            // console.log(generateHash(document.getElementById('pwd').value))
-            let unn = document.querySelector('#usname').value
-            // console.log(snapshot.val())
-            console.log(snapshot.val()[`${unn}`].pwd)
-            if (snapshot.val()[`${unn}`].pwd == generateHash(document.getElementById('pwd').value)) {
-                // session_generator()
-                writeUserData()
-                window.location.replace("http://www.google.com");
-            }
-        } else {
-            console.log("No data available");
-        }
-    }).catch((error) => {
-        console.error(error);
-    });
+    // const dbRef = ref(getDatabase());
+    // // console.log(dbRef)
+    // get(child(dbRef, "login")).then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //         // console.log(snapshot.val())
+    //         // console.log(generateHash(document.getElementById('pwd').value))
+    //         let unn = document.querySelector('#usname').value
+    //         // console.log(snapshot.val())
+    //         console.log(snapshot.val()[`${unn}`].pwd)
+    //         if (snapshot.val()[`${unn}`].pwd == generateHash(document.getElementById('pwd').value)) {
+    //             // session_generator()
+    //             writeUserData()
+    //             window.location.href("files/landing_page/student/landing.html");
+    //         }
+    //     } else {
+    //         console.log("No data available");
+    //     }
+    // }).catch((error) => {
+    //     console.error(error);
+    // });
 })
 // function redirect_page(db) {
 

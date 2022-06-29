@@ -335,45 +335,17 @@ function new_btns() {
                                                                 required="required" data-error="Lastname is required.">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="form_email">Regarding *</label>
-                                                            <select id="form_regard_complaint" name="need" class="form-control"
-                                                                required="required"
-                                                                data-error="Please specify your need.">
-                                                                <option value="" selected disabled>--Select Your Issue--
-                                                                </option>
-                                                                <option>Exam</option>
-                                                                <option>Acadmics</option>
-                                                                <option>Administration</option>
-                                                                <option>Hostel</option>
-                                                                <option>Other</option>
-                                                            </select>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="form_need">To *</label>
-                                                            <!-- <label for="form_email">From *</label> -->
-                                                            
-                                                            <select id="form_to_complaint" name="need" class="form-control"
-                                                                required="required"
-                                                                data-error="Please specify your need.">
-                                                                <option value="" selected disabled>--Select Your Issue--
-                                                                </option>
-                                                                <option>HOD</option>
-                                                                <option>Class Teacher</option>
-                                                                <option>Joint Director</option>
-                                                                <option>Warden</option>
-                                                                <option>Other</option>
-                                                            </select>
-
+                                                            <label for="form_lastname">To *</label>
+                                                            <input id="form_mobile_complaint" type="text" name="surname"
+                                                                class="form-control"
+                                                                placeholder=" "
+                                                                required="required" data-error="Lastname is required.">
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
@@ -390,8 +362,11 @@ function new_btns() {
 
                                                     <div class="col-md-12">
 
-                                                        <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                                        " value="Send Request" style="background-color: #6200ee;" id ="send_req_complaint">
+                                                    <a href='https://ide.geeksforgeeks.org/'>
+		<button class="button-61 hello_mail">
+			Send Complaint
+		</button>
+	</a>
 
                                                     </div>
 
